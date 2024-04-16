@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Timer</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        #timer { font-size: 48px; }
+        button { font-size: 16px; padding: 10px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <div>
+        <div id="timer">00:00:00</div>
+        <button onclick="startTimer()">Start</button>
+        <button onclick="stopTimer()">Stop</button>
+        <button onclick="resetTimer()">Reset</button>
+    </div>
+
+    <script>
+        let timer = document.getElementById('timer');
+        let seconds = 0, interval = null;
+
+        function startTimer() {
+            if (interval) return;
+            interval = setInterval(() => {
+                seconds++;
+                let hrs = Math.floor(seconds / 3600);
+                let mins = Math.floor((seconds - (hrs * 3600)) / 60);
+                let secs = seconds % 60;
+                timer.textContent = 
+                    `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(interval);
+            interval = null;
+        }
+
+        function resetTimer() {
+            stopTimer();
+            seconds = 0;
+            timer.textContent = "00:00:00";
+        }
+    </script>
+</body>
+</html>
